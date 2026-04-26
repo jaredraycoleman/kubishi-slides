@@ -89,8 +89,6 @@
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   background: var(--surface);
-  background-size: cover;
-  background-position: center;
   border: 1px solid var(--border);
   border-radius: 22px;
   box-shadow: var(--shadow);
@@ -103,6 +101,26 @@
   text-align: center;
   overflow: hidden;
 }
+
+/* Layered backdrop: blurred copy fills any whitespace around the contained image */
+.face .face-blur {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(28px) saturate(1.1) brightness(0.9);
+  transform: scale(1.15);
+  z-index: 0;
+}
+.face .face-image {
+  position: absolute;
+  inset: 0;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
 .face.back { transform: rotateY(180deg); }
 
 .face .text {
@@ -113,7 +131,7 @@
   letter-spacing: -0.01em;
   padding: 2rem;
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 .face.paiute .text { color: var(--accent); font-style: italic; }
 
@@ -128,7 +146,8 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.35) 35%, rgba(0, 0, 0, 0) 60%);
-  z-index: 1;
+  z-index: 2;
+  pointer-events: none;
 }
 /* When text is hidden, drop the bottom scrim too */
 .face.has-bg.no-text::before {
@@ -151,7 +170,7 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  z-index: 2;
+  z-index: 3;
   background: rgba(255, 255, 255, 0.7);
   padding: 0.25rem 0.6rem;
   border-radius: 999px;

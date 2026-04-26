@@ -98,7 +98,15 @@ export function initPresenter(slides: Slide[], imageBase: string) {
     const face = document.createElement("div");
     face.className = `face ${side}` + (isPaiute ? " paiute" : "") + (bgUrl ? " has-bg" : "") + (hideText ? " no-text" : "");
     if (bgUrl) {
-      face.style.backgroundImage = `url("${bgUrl}")`;
+      const url = `url("${bgUrl}")`;
+      const blur = document.createElement("div");
+      blur.className = "face-blur";
+      blur.style.backgroundImage = url;
+      face.appendChild(blur);
+      const image = document.createElement("div");
+      image.className = "face-image";
+      image.style.backgroundImage = url;
+      face.appendChild(image);
     }
     if (!hideText) {
       const textEl = document.createElement("div");
