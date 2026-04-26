@@ -1,0 +1,109 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { parseDeckBody } from "../../lib/parseDeck";
+import "../../styles/present.css";
+
+export async function getStaticPaths() {
+  const decks = await getCollection("decks");
+  return decks.map((d) => ({ params: { slug: d.id }, props: { deck: d } }));
+}
+
+const { deck } = Astro.props;
+const slides = parseDeckBody(deck.body ?? "");
+const slidesJson = JSON.stringify(slides);
+const imageBase = `/images/decks/${deck.id}/`;
+---
+<Layout title={`${deck.data.title} — Kubishi Slides`}>
+  <div class="present">
+    <div class="toolbar">
+      <a href="/" class="home" aria-label="Back to home">← Decks</a>
+      <div class="deck-title">{deck.data.title}</div>
+      <button id="btn-shuffle" class="tool-btn" title="Shuffle (S)">Shuffle</button>
+      <span id="progress" class="progress">0 / 0</span>
+      <button id="btn-fullscreen" class="tool-btn" title="Fullscreen (F)">⤢</button>
+      <button id="btn-settings" class="tool-btn" title="Settings (,)">⚙</button>
+    </div>
+
+    <div class="stage" id="stage-wrap">
+      <button id="prev" class="nav-arrow prev" aria-label="Previous">←</button>
+      <div id="stage" class="stage-inner" style="display:contents"></div>
+      <button id="next" class="nav-arrow next" aria-label="Next">→</button>
+    </div>
+
+    <div id="scrim" class="scrim"></div>
+    <aside id="settings-panel" class="settings-panel" aria-label="Settings">
+      <h2>Settings</h2>
+
+      <div class="field">
+        <label>Front of card</label>
+        <div class="seg">
+          <button data-setting="front" data-value="paiute">Paiute</button>
+          <button data-setting="front" data-value="english">English</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Image on</label>
+        <div class="seg">
+          <button data-setting="imageSide" data-value="front">Front</button>
+          <button data-setting="imageSide" data-value="back">Back</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Hide text on image side</label>
+        <div class="seg">
+          <button data-setting="hideTextOnImage" data-value="false">Off</button>
+          <button data-setting="hideTextOnImage" data-value="true">On</button>
+        </div>
+        <div class="help">Use the image alone — no text overlay — on whichever side the image is on.</div>
+      </div>
+
+      <div class="field">
+        <label>Shuffle</label>
+        <div class="seg">
+          <button data-setting="shuffle" data-value="false">Off</button>
+          <button data-setting="shuffle" data-value="true">On</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Auto-advance</label>
+        <div class="seg">
+          <button data-setting="autoplay" data-value="0">Off</button>
+          <button data-setting="autoplay" data-value="3">3s</button>
+          <button data-setting="autoplay" data-value="5">5s</button>
+          <button data-setting="autoplay" data-value="10">10s</button>
+        </div>
+        <div class="help">Auto-flip then auto-advance to the next card.</div>
+      </div>
+
+      <div class="field">
+        <label>Keyboard</label>
+        <div class="kbd-list">
+          <kbd>←</kbd><span>Previous</span>
+          <kbd>→</kbd><span>Next</span>
+          <kbd>Space</kbd><span>Flip</span>
+          <kbd>S</kbd><span>Toggle shuffle</span>
+          <kbd>R</kbd><span>Reset to first</span>
+          <kbd>F</kbd><span>Fullscreen</span>
+          <kbd>,</kbd><span>Toggle settings</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script type="application/json" id="deck-data" set:html={slidesJson}></script>
+  <script define:vars={{ imageBase }}>
+    window.__KUBISHI_IMAGE_BASE__ = imageBase;
+  </script>
+  <script>
+    import { initPresenter } from "../../lib/presenter";
+    import type { Slide } from "../../lib/parseDeck";
+    const dataEl = document.getElementById("deck-data")!;
+    const slides = JSON.parse(dataEl.textContent || "[]") as Slide[];
+    const imageBase = (window as any).__KUBISHI_IMAGE_BASE__ as string;
+    initPresenter(slides, imageBase);
+  </script>
+</Layout>

@@ -1,0 +1,136 @@
+:root {
+  --bg: #faf7f2;
+  --surface: #ffffff;
+  --ink: #1d1b1a;
+  --ink-soft: #5a554f;
+  --accent: #b8552c;
+  --accent-soft: #f3d6c5;
+  --border: #e6dfd5;
+  --shadow: 0 1px 2px rgba(20, 14, 10, 0.04), 0 4px 16px rgba(20, 14, 10, 0.06);
+  --radius: 14px;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15110d;
+    --surface: #1f1a15;
+    --ink: #f3ece1;
+    --ink-soft: #aaa093;
+    --accent: #e08358;
+    --accent-soft: #3a261a;
+    --border: #2e261d;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+main.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vw, 3rem) 1.25rem 4rem;
+}
+
+.site-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+}
+
+.site-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.site-tagline {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.group-heading {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  margin: 2rem 0 0.75rem;
+}
+
+.deck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.deck-card {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.2rem 1rem;
+  box-shadow: var(--shadow);
+  transition: transform 120ms ease, border-color 120ms ease;
+}
+
+.deck-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.deck-card .title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+}
+
+.deck-card .paiute {
+  color: var(--accent);
+  font-style: italic;
+  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
+}
+
+.deck-card .meta {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.deck-card .meta .dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+}

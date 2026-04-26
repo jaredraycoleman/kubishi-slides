@@ -1,0 +1,66 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { parseDeckBody, countCards } from "../lib/parseDeck";
+
+const decks = await getCollection("decks");
+
+const enriched = await Promise.all(decks.map(async (d) => {
+  const slides = parseDeckBody(d.body ?? "");
+  return {
+    slug: d.id,
+    data: d.data,
+    cardCount: countCards(slides),
+    slideCount: slides.length,
+  };
+}));
+
+const groupOrder = ["vocab", "phrases", "grammar", "other"] as const;
+const groupLabels: Record<(typeof groupOrder)[number], string> = {
+  vocab: "Vocabulary",
+  phrases: "Phrases",
+  grammar: "Grammar",
+  other: "Other",
+};
+
+const grouped = groupOrder.map((g) => ({
+  key: g,
+  label: groupLabels[g],
+  decks: enriched
+    .filter((d) => d.data.group === g)
+    .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999) || a.data.title.localeCompare(b.data.title)),
+}));
+---
+<Layout title="Kubishi Slides">
+  <main class="container">
+    <header class="site-header">
+      <div>
+        <h1 class="site-title">Kubishi Slides</h1>
+        <div class="site-tagline">Paiute language flashcards & lessons</div>
+      </div>
+    </header>
+
+    {grouped.map((group) => group.decks.length > 0 && (
+      <section>
+        <h2 class="group-heading">{group.label}</h2>
+        <div class="deck-grid">
+          {group.decks.map((d) => (
+            <a class="deck-card" href={`/decks/${d.slug}/`}>
+              <div class="title">{d.data.title}</div>
+              {d.data.paiuteTitle && <div class="paiute">{d.data.paiuteTitle}</div>}
+              <div class="meta">
+                <span>{d.cardCount} cards</span>
+                {d.slideCount !== d.cardCount && (
+                  <>
+                    <span class="dot"></span>
+                    <span>{d.slideCount - d.cardCount} notes</span>
+                  </>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+  </main>
+</Layout>
