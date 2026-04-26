@@ -18,7 +18,7 @@ Tosa'oogwa | swan | slide-10.webp
 Kudabia | mallard duck | slide-11.webp
 Saya | mudhen | slide-12.webp
 Suugu | robin | slide-13.webp
-'Azabana | TODO | slide-14.webp
+'Azabana | northern flicker | slide-14.webp
 Kadatsabi | raven | slide-15.webp
 Tuhukinii' | red-tailed hawk | slide-16.webp
 Kaiggai | magpie | slide-17.webp

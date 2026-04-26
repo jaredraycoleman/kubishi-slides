@@ -18,7 +18,7 @@ Kutsu | bison | slide-10.webp
 Kidi'i | cat | slide-11.webp
 Pungiizhi' | kangaroo mouse | slide-12.webp
 Tühidda | deer | slide-13.webp
-Eingwü | TODO | slide-14.webp
+Eingwü | squirrel | slide-14.webp
 Taba'ya | golden-mantled ground squirrel | slide-15.webp
 Mühü | porcupine | slide-16.webp
 Kaani | cattle | slide-17.webp
