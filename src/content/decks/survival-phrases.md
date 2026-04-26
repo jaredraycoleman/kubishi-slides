@@ -18,4 +18,5 @@ Nüü Jared mii na-nia-dü. | My name is Jared.
 Hani'-wa üü? | How are you?
 Tsawidu nüü. | I am good.
 I-düŵaabü'a | Help me
+Subaa | Maybe
 Maanohobüü | Thank you

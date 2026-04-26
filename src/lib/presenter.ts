@@ -66,18 +66,24 @@ export function initPresenter(slides: Slide[], imageBase: string) {
     if (!settings.shuffle) {
       order = slides.map((_, i) => i);
     } else {
-      // Shuffle only the card slides; reference slides stay pinned to their
-      // original positions so grammar tables / intros don't drift around.
-      const cardIndices: number[] = [];
-      for (let i = 0; i < slides.length; i++) {
-        if (slides[i].kind === "card") cardIndices.push(i);
-      }
-      const shuffled = shuffleArray(cardIndices);
+      // Cards shuffle only within their section (the run of consecutive
+      // cards between two reference slides). References stay pinned to
+      // their original positions, so a card never drifts under the wrong
+      // grammar header.
       order = [];
-      let cursor = 0;
-      for (let i = 0; i < slides.length; i++) {
-        if (slides[i].kind === "card") order.push(shuffled[cursor++]);
-        else order.push(i);
+      let i = 0;
+      while (i < slides.length) {
+        if (slides[i].kind === "reference") {
+          order.push(i);
+          i++;
+        } else {
+          const run: number[] = [];
+          while (i < slides.length && slides[i].kind === "card") {
+            run.push(i);
+            i++;
+          }
+          order.push(...shuffleArray(run));
+        }
       }
     }
     if (idx >= order.length) idx = 0;

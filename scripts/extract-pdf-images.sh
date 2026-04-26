@@ -4,8 +4,8 @@
 # Usage: extract-pdf-images.sh <pdf-path> <output-dir>
 #
 # For each PDF page, picks the largest embedded image (skips small decorative
-# graphics), converts it to JPEG (quality 85, max width 1024), saves as
-# slide-NN.jpg, and prints a JSON manifest.
+# graphics), converts it to WebP (quality 82, max width 1024), saves as
+# slide-NN.webp, and prints a JSON manifest.
 #
 # Requires: pdfimages (poppler), magick or convert (ImageMagick), jq.
 set -euo pipefail
@@ -34,9 +34,9 @@ for page_dir in $(ls "$TMP" | sed -E 's/img-([0-9]+)-.*/\1/' | sort -u); do
   size=$(stat -c%s "$largest")
   if (( size < 20000 )); then continue; fi
 
-  dest=$(printf "%s/slide-%02d.jpg" "$OUT" "$page_num")
-  $CONVERT "$largest" -resize '1024x1024>' -quality 85 "$dest" 2>/dev/null
-  manifest_entries+=("$(printf '"%d": "slide-%02d.jpg"' "$page_num" "$page_num")")
+  dest=$(printf "%s/slide-%02d.webp" "$OUT" "$page_num")
+  $CONVERT "$largest" -resize '1024x1024>' -quality 82 -define webp:method=6 "$dest" 2>/dev/null
+  manifest_entries+=("$(printf '"%d": "slide-%02d.webp"' "$page_num" "$page_num")")
 done
 
 # Print manifest

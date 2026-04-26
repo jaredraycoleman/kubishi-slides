@@ -6,27 +6,27 @@ order: 1
 tags: [vocab, animals]
 ---
 
-Padühidda | elk | slide-02.jpg
-Kamü | jackrabbit | slide-03.jpg
-Padaka'i | raccoon | slide-04.jpg
-Ishagwanga' | red fox | slide-05.jpg
-Isha' | coyote | slide-06.jpg
-Puggu | horse | slide-07.jpg
-Huuna' | badger | slide-08.jpg
-Kooipa | bighorn sheep | slide-09.jpg
-Kutsu | bison | slide-10.jpg
-Kidi'i | cat | slide-11.jpg
-Pungiizhi' | kangaroo mouse | slide-12.jpg
-Tühidda | deer | slide-13.jpg
-Eingwü | TODO | slide-14.jpg
-Taba'ya | golden-mantled ground squirrel | slide-15.jpg
-Mühü | porcupine | slide-16.jpg
-Kaani | cattle | slide-17.jpg
-Kübba | California ground squirrel | slide-18.jpg
-Tsoka' / Wiheetsiti | mountain lion | slide-19.jpg
-Tabuutsi' | cottontail rabbit | slide-20.jpg
-Wahii' | grey fox | slide-21.jpg
-Kaŵa | wood rat | slide-22.jpg
-Toopi | wolf | slide-23.jpg
-'Ishabugu | dog | slide-24.jpg
-Pahabichi / Tabahwa | bear | slide-25.jpg
+Padühidda | elk | slide-02.webp
+Kamü | jackrabbit | slide-03.webp
+Padaka'i | raccoon | slide-04.webp
+Ishagwanga' | red fox | slide-05.webp
+Isha' | coyote | slide-06.webp
+Puggu | horse | slide-07.webp
+Huuna' | badger | slide-08.webp
+Kooipa | bighorn sheep | slide-09.webp
+Kutsu | bison | slide-10.webp
+Kidi'i | cat | slide-11.webp
+Pungiizhi' | kangaroo mouse | slide-12.webp
+Tühidda | deer | slide-13.webp
+Eingwü | TODO | slide-14.webp
+Taba'ya | golden-mantled ground squirrel | slide-15.webp
+Mühü | porcupine | slide-16.webp
+Kaani | cattle | slide-17.webp
+Kübba | California ground squirrel | slide-18.webp
+Tsoka' / Wiheetsiti | mountain lion | slide-19.webp
+Tabuutsi' | cottontail rabbit | slide-20.webp
+Wahii' | grey fox | slide-21.webp
+Kaŵa | wood rat | slide-22.webp
+Toopi | wolf | slide-23.webp
+'Ishabugu | dog | slide-24.webp
+Pahabichi / Tabahwa | bear | slide-25.webp

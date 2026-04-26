@@ -35,7 +35,3 @@ Poono'i-ti huuna'-ii. | The badger is playing ball.
 Wichimui-ti tühidda-ii. | The deer is playing football.
 Tagwüna'i-ti pungizhi-uu. | The mouse is throwing.
 Kooipa-uu poyoha-ti. | The Bighorn sheep is running.
-
----
-
-# You know 144 sentences!
