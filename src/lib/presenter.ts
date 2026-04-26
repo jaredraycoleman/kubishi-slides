@@ -60,6 +60,7 @@ export function initPresenter(slides: Slide[], imageBase: string) {
   let idx = 0;
   let flipped = false;
   let autoplayTimer: number | null = null;
+  let suppressClickUntil = 0;
 
   function buildOrder() {
     if (!settings.shuffle) {
@@ -144,7 +145,10 @@ export function initPresenter(slides: Slide[], imageBase: string) {
     card.appendChild(frontFace);
     card.appendChild(backFace);
     container.appendChild(card);
-    container.addEventListener("click", flip);
+    container.addEventListener("click", () => {
+      if (Date.now() < suppressClickUntil) return;
+      flip();
+    });
     stage.appendChild(container);
 
     progress.textContent = `${idx + 1} / ${order.length}`;
@@ -240,6 +244,33 @@ export function initPresenter(slides: Slide[], imageBase: string) {
       render();
       resetAutoplay();
     });
+  });
+
+  // Swipe gestures on the stage: left = next, right = prev, up/down = flip
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchStartTime = 0;
+  stage.addEventListener("touchstart", (e) => {
+    if (e.touches.length !== 1) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchStartTime = Date.now();
+  }, { passive: true });
+  stage.addEventListener("touchend", (e) => {
+    if (e.changedTouches.length !== 1) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    const dt = Date.now() - touchStartTime;
+    if (dt > 600) return;
+    const absX = Math.abs(dx);
+    const absY = Math.abs(dy);
+    if (Math.max(absX, absY) < 40) return; // tap, not swipe — let click flip
+    suppressClickUntil = Date.now() + 400;
+    if (absX > absY) {
+      if (dx < 0) go(1); else go(-1);
+    } else {
+      flip();
+    }
   });
 
   // Keyboard

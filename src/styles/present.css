@@ -305,7 +305,24 @@
 }
 
 @media (max-width: 600px) {
-  .nav-arrow { display: none; }
-  .toolbar { flex-wrap: wrap; gap: 0.4rem; }
-  .toolbar .deck-title { font-size: 0.95rem; }
+  .toolbar { gap: 0.35rem; padding: 0.5rem 0.6rem; }
+  .toolbar .deck-title { font-size: 0.9rem; min-width: 0; }
+  .toolbar .progress { font-size: 0.8rem; }
+  .tool-btn { padding: 0.4rem 0.55rem; font-size: 0.8rem; }
+  .stage { padding: 0.75rem; }
+  .card-container {
+    height: min(480px, calc(100dvh - 140px));
+  }
+  /* Bottom-anchored nav arrows so they don't overlap the card edges */
+  .nav-arrow {
+    top: auto;
+    bottom: 0.6rem;
+    transform: none;
+    width: 56px;
+    height: 56px;
+    font-size: 1.4rem;
+  }
+  .nav-arrow.prev { left: 0.6rem; }
+  .nav-arrow.next { right: 0.6rem; }
+  .reference-slide { font-size: 1rem; padding: 1.25rem; }
 }
